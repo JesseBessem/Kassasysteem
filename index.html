@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>KassaSysteem B-ITB4-2a</title>
+    </head>
+    <body>
+        <div id="ProductList" style="width: 300px; height:300px; background-color:#979797; color:white;">
+           
+        </div>
+        <input type="text" name="BARCODE" id="Barcodescan">
+        
+        <script>
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+        <script>
+        $( document ).ready(function() {
+            $('input').keyup(function (e){
+            // Do nothing
+            if(e.keyCode == 13) 
+            {
+                var scancode= $("#Barcodescan").val();
+                
+                $.get("https://api.outpan.com/v2/products/" + scancode + "/name?apikey=fec6ec19fae7e242fd1cb962956d8b51", function(D)
+                {
+                    document.getElementById('ProductList').innerHTML += D.name + "</br>";
+                    $("#Barcodescan").val("");
+                    document.getElementById("Barcodescan").autofocus;
+                    var data = JSON.stringify(D);
+                    console.log(data);
+                });
+            }
+        })});
+        </script>
+         fec6ec19fae7e242fd1cb962956d8b51
+            
+            https://api.outpan.com/v2/products/[GTIN]?apikey=[YOUR API KEY]
+    </body>
+</html>
